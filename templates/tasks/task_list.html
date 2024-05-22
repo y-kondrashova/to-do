@@ -18,7 +18,11 @@
             {{ task.is_done }}</p>
           <p><strong>Tags</strong>
             {{ task.tag.name }}</p>
+        <p>
+          <a class="btn btn-primary" href="{% url 'tasks:task-update' task.id %}">Update</a>
+        </p>
         </li>
+
       {% endfor %}
     </ul>
 
