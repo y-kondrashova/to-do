@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="alert alert-danger" role="alert">
+    <h1>Delete {{ task.content }} task</h1>
+    Are you sure that you want to delete {{ task.content }} task?
+  </div>
+  {% include 'includes/confirm_delete_form.html' %}
+{% endblock %}

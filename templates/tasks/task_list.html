@@ -6,9 +6,14 @@
     <a class="btn btn-success" href="{% url 'tasks:task-create' %}">Create new task</a>
   </p>
   {% if task_list %}
-    <ul class="list-group">
+    <ul class="list-group col-sm-4">
       {% for task in task_list %}
         <li class="list-group-item">
+          {% if task.is_done %}
+            <p>
+              <strong>Done</strong>
+            </p>
+          {% endif %}
           <p>{{ task.content }}</p>
           <p><strong>Created at: </strong>
             {{ task.created_at }}</p>
@@ -16,11 +21,28 @@
             {{ task.deadline }}</p>
           <p><strong>Is done</strong>
             {{ task.is_done }}</p>
-          <p><strong>Tags</strong>
-            {{ task.tag.name }}</p>
-        <p>
-          <a class="btn btn-primary" href="{% url 'tasks:task-update' task.id %}">Update</a>
-        </p>
+          <p><strong>Tags</strong></p>
+          <p>Tags: {% for tag in task.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+          {% if not task.is_done %}
+            <form method="post" action="{% url 'tasks:task-mark-done' task.pk %}">
+              {% csrf_token %}
+              <button class="btn btn-success" type="submit">Mark as Done</button>
+            </form>
+          {% else %}
+            <form method="post" action="{% url 'tasks:task-mark-undone' task.pk %}">
+              {% csrf_token %}
+              <button class="btn btn-secondary" type="submit">Mark as Undone</button>
+            </form>
+          {% endif %}
+          <br>
+          <div class="row">
+            <div class="col">
+              <a class="btn btn-primary" href="{% url 'tasks:task-update' task.id %}">Update</a>
+            </div>
+            <div class="col">
+              <a class="btn btn-danger" href="{% url 'tasks:task-delete' task.id %}">Delete</a>
+            </div>
+          </div>
         </li>
 
       {% endfor %}
