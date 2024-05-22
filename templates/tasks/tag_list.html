@@ -5,10 +5,19 @@
   <p>
     <a class="btn btn-success" href="{% url 'tasks:tag-create' %}">Create new tag</a>
   </p>
-  <ul class="list-group">
+  <ul>
     {% if tag_list %}
       {% for tag in tag_list %}
-        <li class="list-group-item">{{ tag.name }}</li>
+        <li class="row">
+          <div class="col">
+            {{ tag.name }}
+          </div>
+          <div class="col">
+            <a class="btn btn-primary" href="{% url 'tasks:tag-update' tag.id %}">Update</a>
+          </div>
+        </li>
+        <br>
+
       {% endfor %}
     {% else %}
       <p>There's no tags to display</p>
