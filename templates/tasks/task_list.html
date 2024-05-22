@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Task list</h1>
+  <p>
+    <a class="btn btn-success" href="{% url 'tasks:task-create' %}">Create new task</a>
+  </p>
+  {% if task_list %}
+    <ul class="list-group">
+      {% for task in task_list %}
+        <li class="list-group-item">
+          <p>{{ task.content }}</p>
+          <p><strong>Created at: </strong>
+            {{ task.created_at }}</p>
+          <p><strong>Deadline: </strong>
+            {{ task.deadline }}</p>
+          <p><strong>Is done</strong>
+            {{ task.is_done }}</p>
+          <p><strong>Tags</strong>
+            {{ task.tag }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+
+
+  {% else %}
+    <p>There's no tasks to display</p>
+  {% endif %}
+{% endblock %}
