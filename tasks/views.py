@@ -1,7 +1,7 @@
 from django.views import generic
 from django.urls import reverse_lazy
 
-from tasks.models import Task
+from tasks.models import Task, Tag
 
 
 class TaskListView(generic.ListView):
@@ -15,3 +15,14 @@ class TaskCreateView(generic.CreateView):
     fields = "__all__"
     success_url = reverse_lazy("tasks:task-list")
 
+
+class TagListView(generic.ListView):
+    model = Tag
+    context_object_name = "tag_list"
+    template_name = "tasks/tag_list.html"
+
+
+class TagCreateView(generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
